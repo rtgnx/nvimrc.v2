@@ -91,13 +91,16 @@ return {
     require('telescope').setup{
       -- ...
     }
+    require("true-zen").setup { }
 
     -- Telescope mappings
-    nnoremap('pp', "<cmd> lua require'telescope.builtin'.find_files{}<CR>")
+    nnoremap('<space><space>', "<cmd> lua require'telescope.builtin'.find_files{}<CR>")
+    nnoremap('<space>p', "<cmd> lua require'telescope.builtin'.commands{}<CR>")
     nnoremap('mm', "<cmd> lua require'telescope.builtin'.man_pages{}<CR>")
     -- nnoremap('/', "<cmd> lua require 'telescope.builtin'.current_buffer_fuzzy_find{}<CR>")
-    nnoremap(';', "<cmd> lua require 'telescope.builtin'.lsp_definitions{}<CR>")
+    nnoremap(';d', "<cmd> lua require 'telescope.builtin'.lsp_definitions{}<CR>")
     nnoremap(';c', "<cmd> lua require 'telescope.builtin'.git_commits{}<CR>")
+    nnoremap(';;', "<cmd> NERDTreeToggle<CR>")
 
 
     -- Reindent mappings
