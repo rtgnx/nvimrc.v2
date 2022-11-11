@@ -13,7 +13,18 @@ return {
     'hrsh7th/cmp-vsnip',
     'hrsh7th/vim-vsnip',
     {'nvim-treesitter/nvim-treesitter', run =  ':TSUpdate'},
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    { "someone-stole-my-name/yaml-companion.nvim",
+      requires = {
+          { "neovim/nvim-lspconfig" },
+          { "nvim-lua/plenary.nvim" },
+          { "nvim-telescope/telescope.nvim" },
+      },
+      config = function()
+        require("telescope").load_extension("yaml_schema")
+      end,
+    },
+  'nvim-treesitter/nvim-treesitter-textobjects',
+
   },
   setup = function ()
     vim.o.completeopt = 'menu,menuone,noselect'
@@ -51,7 +62,8 @@ return {
 
     local servers = {
       'ansiblels', 'bashls', 'asm_lsp', 'ccls', 'dockerls',
-      'dotls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'sumneko_lua'
+      'dotls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'sumneko_lua', 'yamlls'
+
     }
     require("nvim-lsp-installer").setup {}
     for _, lsp in pairs(servers) do
@@ -91,5 +103,14 @@ return {
         additional_vim_regex_highlighting = false,
       },
     }
+    local cfg = require("yaml-companion").setup({
+  -- Add any options here, or leave empty to use the default settings
+  -- lspconfig = {
+  --   cmd = {"yaml-language-server"}
+  -- },
+    })
+    require("lspconfig")["yamlls"].setup(cfg)
+
   end
+
 }

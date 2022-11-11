@@ -45,6 +45,8 @@ return {
     { 'junegunn/vim-easy-align', as = 'easy-align', opt = true },
     { 'mechatroner/rainbow_csv', opt = true },
     -- {'ms-jpq/chadtree', branch = 'chad', run = '!python3 -m chadtree deps'}
+    'folke/twilight.nvim',
+    'Pocco81/true-zen.nvim'
 
   },
   setup = function()
@@ -81,6 +83,7 @@ return {
     vim.cmd 'highlight ExtraWhitespaces ctermbg=red guibg=red'
     vim.cmd 'autocmd ColorScheme * highlight ExtraWhitespaces ctermbg=red guibg=red'
 
+
     vim.cmd 'colorscheme gotham256'
 
     require'mapx'.setup{ global = true  }
@@ -103,5 +106,30 @@ return {
     -- clipboard
     noremap('p', '"*p')
     noremap('y', '"*y')
+
+    require("true-zen").setup { }
+    require("twilight").setup {
+      dimming = {
+        alpha = 0.25, -- amount of dimming
+        -- we try to get the foreground from the highlight groups or fallback color
+        color = { "Normal", "#ffffff" },
+        term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+        inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+      },
+      context = 10, -- amount of lines we will try to show around the current line
+      treesitter = true, -- use treesitter when available for the filetype
+      -- treesitter is used to automatically expand the visible text,
+      -- but you can further control the types of nodes that should always be fully expanded
+      expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+        "function",
+        "method",
+        "table",
+        "if_statement",
+      },
+      exclude = {}, -- exclude these filetypes
+    }
+
+    -- nnoremap(';z', "cmd lua require('zen-mode').toggle({ window = { width = .85 })<CR>")
+    -- nnoremap(';z', "<cmd> lua require('twilight').toggle{}<CR>")
   end,
 }
